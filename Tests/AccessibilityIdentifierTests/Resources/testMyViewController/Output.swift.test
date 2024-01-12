@@ -1,0 +1,15 @@
+class MyViewController: UIViewController{
+  var aButton: UIButton { UIButton() }
+  lazy var aTextField = UITextField()
+  let aLabel = UILabel()
+
+    public struct Identifiers {
+      public static let namespace = "MyViewController"
+
+      public static let aButton = "MyViewController.aButton"
+
+      public static let aTextField = "MyViewController.aTextField"
+
+      public static let aLabel = "MyViewController.aLabel"
+    }
+}

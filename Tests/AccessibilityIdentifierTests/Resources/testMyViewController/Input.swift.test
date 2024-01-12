@@ -1,0 +1,6 @@
+@AccessibilityIdentifier
+class MyViewController: UIViewController{
+  var aButton: UIButton { UIButton() }
+  lazy var aTextField = UITextField()
+  let aLabel = UILabel()
+}
