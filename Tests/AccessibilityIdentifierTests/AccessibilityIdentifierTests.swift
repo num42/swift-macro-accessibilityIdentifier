@@ -9,10 +9,10 @@ import XCTest
   let testMacros: [String: Macro.Type] = [
     "AccessibilityIdentifier": AccessibilityIdentifierGenerationMacro.self
   ]
-#endif
 
 final class AccessibilityIdentifierGenerationMacroTests: XCTestCase {
   func testMyViewController() throws {
     testMacro(macros: testMacros)
   }
 }
+#endif
