@@ -15,5 +15,4 @@ final class AccessibilityIdentifierGenerationMacroTests: XCTestCase {
     testMacro(macros: testMacros)
   }
 }
-
 #endif
