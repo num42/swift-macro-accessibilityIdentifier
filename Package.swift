@@ -4,7 +4,7 @@
 import CompilerPluginSupport
 import PackageDescription
 
-let name = String(#filePath.split(separator: "/").reversed()[1])
+let name = "AccessibilityIdentifier"
 
 let package = Package(
   name: name,
@@ -21,13 +21,13 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(path: "../MacroTester"),
+    .package(url: "git@github.com:num42/swift-macrotester.git", from: "1.0.0"),
     // Depend on the Swift 5.9 release of SwiftSyntax
-    .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0")
-//    .package(
-//      url: "https://github.com/realm/SwiftLint",
-//      from: "0.53.0"
-//    )
+    .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0"),
+    .package(
+      url: "https://github.com/realm/SwiftLint",
+      from: "0.53.0"
+    )
   ],
   targets: [
     // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -38,33 +38,32 @@ let package = Package(
       dependencies: [
         .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
-      ]
-//      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
+      ],
+      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
     ),
 
     // Library that exposes a macro as part of its API, which is used in client programs.
     .target(
       name: name,
-      dependencies: [.target(name: "\(name)Macros")]
-//      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
+      dependencies: [.target(name: "\(name)Macros")],
+      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
     ),
 
     // A client of the library, which is able to use the macro in its own code.
     .executableTarget(
       name: "\(name)Client",
-      dependencies: [.target(name: name)]
-//      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
-    ) // ,
-
+      dependencies: [.target(name: name)],
+      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
+    ),
     // A test target used to develop the macro implementation.
-//    .testTarget(
-//      name: "\(name)Tests",
-//      dependencies: [
-//        .product(name: "MacroTester", package: "MacroTester"),
-//        .target(name: "\(name)Macros"),
-//        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
-//      ]
-    ////      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
-//    )
+    .testTarget(
+      name: "\(name)Tests",
+      dependencies: [
+        .product(name: "MacroTester", package: "MacroTester"),
+        .target(name: "\(name)Macros"),
+        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
+      ],
+      plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
+    )
   ]
 )
