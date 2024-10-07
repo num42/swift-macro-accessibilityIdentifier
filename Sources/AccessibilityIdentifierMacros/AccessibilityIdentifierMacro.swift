@@ -15,13 +15,12 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
   ) throws -> [DeclSyntax] {
     let name = declaration.as(ClassDeclSyntax.self)?.name.description ?? declaration.as(StructDeclSyntax.self)!.name.description
 
-    let classMemberBlock: MemberBlockSyntax? = declaration.as(ClassDeclSyntax.self)?
-      .memberBlock.as(MemberBlockSyntax.self)
+    let classMemberBlock: MemberBlockSyntax? = declaration.as(ClassDeclSyntax.self)?.memberBlock
 
-    let structMemberBlock: MemberBlockSyntax? = declaration.as(StructDeclSyntax.self)?
-      .memberBlock.as(MemberBlockSyntax.self)
+    let structMemberBlock: MemberBlockSyntax? = declaration.as(StructDeclSyntax.self)?.memberBlock
 
-    let propertyNames = (classMemberBlock ?? structMemberBlock!).members.compactMap { $0.as(MemberBlockItemSyntax.self) }
+    let propertyNames = (classMemberBlock ?? structMemberBlock!).members
+      .compactMap { $0 }
       .map(\.decl)
       .compactMap { $0.as(VariableDeclSyntax.self) }
       .compactMap(\.bindings.first?.pattern)
