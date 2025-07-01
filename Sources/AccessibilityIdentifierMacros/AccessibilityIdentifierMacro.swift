@@ -11,6 +11,7 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
   public static func expansion(
     of attribute: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
+    conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
     let name = declaration.as(ClassDeclSyntax.self)?.name.description ?? declaration.as(StructDeclSyntax.self)!.name.description
