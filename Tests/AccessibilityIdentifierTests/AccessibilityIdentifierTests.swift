@@ -10,9 +10,9 @@ import XCTest
     "AccessibilityIdentifier": AccessibilityIdentifierGenerationMacro.self
   ]
 
-final class AccessibilityIdentifierGenerationMacroTests: XCTestCase {
-  func testMyViewController() throws {
-    testMacro(macros: testMacros)
+  final class AccessibilityIdentifierGenerationMacroTests: XCTestCase {
+    func testMyViewController() throws {
+      testMacro(macros: testMacros)
+    }
   }
-}
 #endif
