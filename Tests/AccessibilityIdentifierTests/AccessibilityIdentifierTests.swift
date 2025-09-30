@@ -1,7 +1,7 @@
 import MacroTester
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
+import Testing
 
 #if canImport(AccessibilityIdentifierMacros)
   import AccessibilityIdentifierMacros
@@ -10,9 +10,9 @@ import XCTest
     "AccessibilityIdentifier": AccessibilityIdentifierGenerationMacro.self
   ]
 
-  final class AccessibilityIdentifierGenerationMacroTests: XCTestCase {
-    func testMyViewController() throws {
-      testMacro(macros: testMacros)
+  @Suite struct AccessibilityIdentifierGenerationMacroTests {
+    @Test func myViewController() {
+      MacroTester.testMacro(macros: testMacros)
     }
   }
 #endif
