@@ -10,8 +10,9 @@ import Testing
     "AccessibilityIdentifier": AccessibilityIdentifierGenerationMacro.self
   ]
 
-@Suite struct AccessibilityIdentifierGenerationMacroTests {
-  @Test func myViewController() {
+  @Suite struct AccessibilityIdentifierGenerationMacroTests {
+    @Test func myViewController() {
       MacroTester.testMacro(macros: testMacros)
+    }
   }
 #endif
