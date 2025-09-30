@@ -14,5 +14,4 @@ import Testing
   @Test func myViewController() {
       MacroTester.testMacro(macros: testMacros)
   }
-}
 #endif
