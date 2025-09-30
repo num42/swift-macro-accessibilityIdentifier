@@ -14,7 +14,9 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
     conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-    let name = declaration.as(ClassDeclSyntax.self)?.name.description ?? declaration.as(StructDeclSyntax.self)!.name.description
+    let name =
+      declaration.as(ClassDeclSyntax.self)?.name.description
+      ?? declaration.as(StructDeclSyntax.self)!.name.description
 
     let classMemberBlock: MemberBlockSyntax? = declaration.as(ClassDeclSyntax.self)?.memberBlock
 
