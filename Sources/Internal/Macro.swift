@@ -1,7 +1,5 @@
 import Foundation
-import SwiftCompilerPlugin
 import SwiftSyntax
-import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 // A macro that creates an Identifier struct that contains accessibility identifiers
@@ -44,11 +42,4 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
       """
     ]
   }
-}
-
-@main
-struct AccessibilityIdentifierPlugin: CompilerPlugin {
-  let providingMacros: [Macro.Type] = [
-    AccessibilityIdentifierGenerationMacro.self
-  ]
 }
