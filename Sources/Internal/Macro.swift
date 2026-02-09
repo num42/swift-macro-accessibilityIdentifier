@@ -7,18 +7,18 @@ import SwiftSyntaxMacros
 // for all the properties of the object this is applied to.
 // Can be used in UI Testing.
 public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
-  enum MacroDiagnostic: String, DiagnosticMessage {
+  public enum MacroDiagnostic: String, DiagnosticMessage {
     case requiresStructOrClass = "#AccessibilityIdentifier requires a struct or class"
     case requiresIdentifierBindings =
       "#AccessibilityIdentifier requires stored properties with identifier patterns"
 
-    var message: String { rawValue }
+    public var message: String { rawValue }
 
-    var diagnosticID: MessageID {
+    public var diagnosticID: MessageID {
       MessageID(domain: "AccessibilityIdentifier", id: rawValue)
     }
 
-    var severity: DiagnosticSeverity { .error }
+    public var severity: DiagnosticSeverity { .error }
   }
 
   public static func expansion(
@@ -30,7 +30,12 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
     let classDeclaration = declaration.as(ClassDeclSyntax.self)
     let structDeclaration = declaration.as(StructDeclSyntax.self)
 
-    guard let typeDeclaration = classDeclaration ?? structDeclaration else {
+    let name: String
+    if let classDeclaration {
+      name = classDeclaration.name.description
+    } else if let structDeclaration {
+      name = structDeclaration.name.description
+    } else {
       let diagnostic = Diagnostic(
         node: Syntax(attribute),
         message: MacroDiagnostic.requiresStructOrClass
@@ -38,8 +43,6 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
       context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
-
-    let name = typeDeclaration.name.description
 
     let classMemberBlock: MemberBlockSyntax? = declaration.as(ClassDeclSyntax.self)?.memberBlock
 
