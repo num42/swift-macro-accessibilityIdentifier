@@ -22,7 +22,8 @@ import Testing
           """,
         diagnostics: [
           .init(
-            message: AccessibilityIdentifierGenerationMacro.MacroDiagnostic.requiresStructOrClass.message,
+            message: AccessibilityIdentifierGenerationMacro.MacroDiagnostic.requiresStructOrClass
+              .message,
             line: 1,
             column: 1
           )
@@ -46,7 +47,8 @@ import Testing
           """,
         diagnostics: [
           .init(
-            message: AccessibilityIdentifierGenerationMacro.MacroDiagnostic.requiresIdentifierBindings.message,
+            message: AccessibilityIdentifierGenerationMacro.MacroDiagnostic
+              .requiresIdentifierBindings.message,
             line: 1,
             column: 1
           )

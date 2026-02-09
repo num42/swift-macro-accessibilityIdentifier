@@ -9,7 +9,8 @@ import SwiftSyntaxMacros
 public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
   enum MacroDiagnostic: String, DiagnosticMessage {
     case requiresStructOrClass = "#AccessibilityIdentifier requires a struct or class"
-    case requiresIdentifierBindings = "#AccessibilityIdentifier requires stored properties with identifier patterns"
+    case requiresIdentifierBindings =
+      "#AccessibilityIdentifier requires stored properties with identifier patterns"
 
     var message: String { rawValue }
 
@@ -58,7 +59,8 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
-    let propertyNames = propertyPatterns
+    let propertyNames =
+      propertyPatterns
       .compactMap { $0.as(IdentifierPatternSyntax.self)!.identifier.description }
       .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
 
