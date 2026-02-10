@@ -1,11 +1,8 @@
-import Foundation
-import SwiftDiagnostics
-import SwiftSyntax
-import SwiftSyntaxMacros
+internal import MacroHelper
+public import SwiftDiagnostics
+public import SwiftSyntax
+public import SwiftSyntaxMacros
 
-// A macro that creates an Identifier struct that contains accessibility identifiers
-// for all the properties of the object this is applied to.
-// Can be used in UI Testing.
 public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
   public enum MacroDiagnostic: String, DiagnosticMessage {
     case requiresStructOrClass = "#AccessibilityIdentifier requires a struct or class"
@@ -27,15 +24,10 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
     conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-    let classDeclaration = declaration.as(ClassDeclSyntax.self)
-    let structDeclaration = declaration.as(StructDeclSyntax.self)
-
-    let name: String
-    if let classDeclaration {
-      name = classDeclaration.name.description
-    } else if let structDeclaration {
-      name = structDeclaration.name.description
-    } else {
+    guard
+      let name = declaration.classOrStructName,
+      let memberBlock = declaration.classOrStructMemberBlock
+    else {
       let diagnostic = Diagnostic(
         node: Syntax(attribute),
         message: MacroDiagnostic.requiresStructOrClass
@@ -44,11 +36,7 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
-    let classMemberBlock: MemberBlockSyntax? = declaration.as(ClassDeclSyntax.self)?.memberBlock
-
-    let structMemberBlock: MemberBlockSyntax? = declaration.as(StructDeclSyntax.self)?.memberBlock
-
-    let propertyPatterns = (classMemberBlock ?? structMemberBlock!).members
+    let propertyPatterns = memberBlock.members
       .compactMap(\.decl)
       .compactMap { $0.as(VariableDeclSyntax.self) }
       .compactMap(\.bindings.first?.pattern)
