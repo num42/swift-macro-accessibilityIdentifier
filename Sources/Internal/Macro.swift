@@ -5,9 +5,9 @@ public import SwiftSyntaxMacros
 
 public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
   public enum MacroDiagnostic: String, DiagnosticMessage {
-    case requiresStructOrClass = "#AccessibilityIdentifier requires a struct or class"
+    case requiresStructOrClass = "@AccessibilityIdentifier requires a struct or class"
     case requiresIdentifierBindings =
-      "#AccessibilityIdentifier requires stored properties with identifier patterns"
+      "@AccessibilityIdentifier requires stored properties with identifier patterns"
 
     public var message: String { rawValue }
 
@@ -32,7 +32,6 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
         node: Syntax(attribute),
         message: MacroDiagnostic.requiresStructOrClass
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
@@ -46,7 +45,6 @@ public struct AccessibilityIdentifierGenerationMacro: MemberMacro {
         node: Syntax(attribute),
         message: MacroDiagnostic.requiresIdentifierBindings
       )
-      context.diagnose(diagnostic)
       throw DiagnosticsError(diagnostics: [diagnostic])
     }
 

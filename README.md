@@ -1,6 +1,11 @@
 # swift-macro-accessibilityIdentifier
 `AccessibilityIdentifier` is a Swift macro that generates a type-safe namespace of accessibility identifiers from stored properties on a class or struct. It removes the need to manually keep string identifiers in sync and makes UI tests and audits more reliable.
 
+## Requirements
+
+- Swift 6.3 toolchain or later (tested with Xcode 27)
+- Platforms: macOS 14, iOS 13, tvOS 13, watchOS 6, macCatalyst 13
+
 ## Features
 
 - **Automatic Identifier Generation:** Generates static `String` properties for accessibility identifiers based on your stored properties.
