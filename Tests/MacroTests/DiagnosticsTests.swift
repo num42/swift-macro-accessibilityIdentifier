@@ -1,16 +1,11 @@
-internal import MacroTester
-internal import SwiftSyntaxMacros
-internal import SwiftSyntaxMacrosTestSupport
+internal import SwiftSyntaxMacrosGenericTestSupport
 internal import Testing
 
 #if canImport(AccessibilityIdentifierMacros)
   import AccessibilityIdentifierMacros
 
-  @Suite struct AccessibilityIdentifierDiagnosticsTests {
-    let testMacros: [String: Macro.Type] = [
-      "AccessibilityIdentifier": AccessibilityIdentifierGenerationMacro.self
-    ]
-
+  @Suite
+  struct AccessibilityIdentifierDiagnosticsTests {
     @Test func enumThrowsError() {
       assertMacroExpansion(
         """
