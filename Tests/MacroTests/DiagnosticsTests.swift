@@ -1,3 +1,4 @@
+internal import MacroTestHelper
 internal import SwiftSyntaxMacrosGenericTestSupport
 internal import Testing
 
@@ -7,7 +8,7 @@ internal import Testing
   @Suite
   struct AccessibilityIdentifierDiagnosticsTests {
     @Test func enumThrowsError() {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         @AccessibilityIdentifier
         enum SomeEnum {}
@@ -28,7 +29,7 @@ internal import Testing
     }
 
     @Test func tupleBindingThrowsError() {
-      assertMacroExpansion(
+      MacroTestHelper.assertMacroExpansion(
         """
         @AccessibilityIdentifier
         struct Widget {
